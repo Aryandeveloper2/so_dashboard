@@ -1,0 +1,70 @@
+<div class="row">
+    {% if order.category == 0 %}
+	<div class="open-order">
+		<svg class="bi" fill="currentColor"><use xlink:href="image/design/icons/account.svg#factor-icon"></use></svg>
+		<span class="mr-3">سفارش باز</span>
+	</div>
+	
+	{% endif %}
+	
+	
+    <div class="col-md-6 d-flex">
+        <div class="col-md-6 col-right">
+            <p><span class="label">{{ column_order_id }}</span> <span>{{ order.order_id }}</span></p>
+            <p><span>{{ order.date_added }}</span></p>
+            <p><span>{{ order.status }}</span></p>
+        </div>
+        
+        <div class="col-md-6 col-left"> 
+            <p><span class="label">{{ text_sum_products }}</span> <span>{{ order.sum_products }}</span></p>
+            <p><span class="label">{{ text_discount }}</span> <span class="discount">{{ order.special }}</span></p>
+            <p><span class="label">{{ text_total }}</span> <span>{{ order.total }}</span></p>
+        </div>
+        
+        
+  {#      <div class="col-md-12">#}
+		{#	<div class="progressbar"></div>#}
+		{#</div>#}
+    </div>
+    
+    <div class="col-md-6 mt-5 mt-md-0 mr-md-4 flex-center">
+        <div class="col-md-9 order-products-sec">
+            <p class="order-products-head">{{ order.product_count }}</p>
+    
+            {% if order.product_data|length <= 3 %}
+                <div class="order-products">
+                    {% for product in order.product_data %}
+                        <div class="order-product">
+                            {% if product.qty > 1 %}<span class="product-count">{{ product.qty }}</span>{% endif %}
+                            <img src="{{ product.product_image }}">
+                        </div>
+                    {% endfor%}
+                </div>
+            {% else %}
+                <div class="swiper contentslider order-products"
+                data-rtl="yes" data-autoplay="no"
+                data-pagination="yes" data-delay="4"
+                data-speed="0.6" data-margin="10"
+                data-mousedrag="yes"
+                data-items_column0="3" data-items_column1="3"
+                data-items_column2="3" data-items_column3="3" data-items_column4="3"
+                data-arrows="no" data-lazyload="yes" data-loop="no" data-hoverpause="yes">
+                    <div class="swiper-wrapper">
+                        {% for product in order.product_data %}
+                            <div class="swiper-slide order-product">
+                                {% if product.qty > 1 %}<span class="product-count">{{ product.qty }}</span>{% endif %}
+                                <img src="{{ product.product_image }}">
+                            </div>
+                        {% endfor%}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="col-md-3 order-btns">
+            <a href="{{ order.view }}" class="btn btn-account"><svg class="bi" fill="currentColor"><use xlink:href="#factor-icon"></use></svg><span>{{ text_show_factor }}</span></a>
+            <a href="{{ order.view }}" class="btn btn-account"><svg class="bi" fill="currentColor"><use xlink:href="#show-order-icon"></use></svg><span>{{ text_show_order }}</span></a>
+            <a href="{{ order.smart_reorder_url }}" class="btn btn-account"><svg class="bi" fill="currentColor"><use xlink:href="#reorder-icon"></use></svg><span>{{ text_reorder }}</span></a>
+        </div>
+    </div>
+</div>

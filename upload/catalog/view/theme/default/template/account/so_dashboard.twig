@@ -1,0 +1,356 @@
+{% extends 'default/template/account/layout.twig' %}
+
+{% block content %}
+
+
+			<div class="main-content no-style">
+				<div class="dashboard--top">
+					<div class="row">
+						{% if modules.display_totalorder %}
+							<div class="col-md-4 col-sm-6 col-xs-6">
+								<a class="boxicon--default boxicon--round" href="{{order}}">
+									<span class="icon_cart"> <i class="fa fa-shopping-cart" aria-hidden="true"></i> </span>
+									<h5><b>{{totalOrder}}</b> <br>{{text_totalOrder}}</h5>
+								</a>
+							</div>
+						{% endif %}
+
+						{% if modules.display_totalwishlist %}
+							<div class="col-md-4 col-sm-6 col-xs-6">
+								<a class="boxicon--default boxicon--round" href="{{ wishlist }}"><div class="icon-box">
+										<span class="icon_cart"> <i class="fa fa-heart" aria-hidden="true"></i> </span>
+										<h5><b>{{totalwishlist}}</b><br>{{text_totalWishlist}} </h5>
+									</div>
+								</a>
+							</div>
+						{% endif %}
+
+						{% if modules.display_totaldownloads %}
+							<div class="col-md-4 col-sm-6 col-xs-6">
+								<a class="boxicon--default boxicon--round" href="{{ download }}">
+									<div class="icon-box">
+										<span class="icon_cart" aria-hidden="true"> <i class="fa fa-cloud-download" aria-hidden="true"></i></span>
+										<h5> <b>{{totalDownload}}</b><br>{{text_totalDownload}}</h5>
+									</div>
+								</a>
+							</div>
+						{% endif %}
+
+						{% if modules.display_totaltransactions %}
+							<div class="col-md-4 col-sm-6 col-xs-6">
+								<a  class="boxicon--default boxicon--round" href="{{ transaction }}">
+									<span class="icon_cart" aria-hidden="true"> <i class="fa fa-money" aria-hidden="true"></i></span>
+									<h5> <b>{{totalTransactions}}</b><br>{{text_totalTransactions}}</h5>
+								</a>
+							</div>
+						{% endif %}
+						
+						{% if modules.display_editaccount %}
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<a class="boxicon--default" href="{{ edit }}">
+									<span class="icon_cart">  <i class="fa fa-user" aria-hidden="true"></i></span>
+									<h4>{{ text_edit }}</h4>
+								</a>
+							</div>
+						{% endif %}
+
+						{% if modules.display_password %}
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<a class="boxicon--default" href="{{ password }}">
+									<span class="icon_cart">  <i class="fa fa-key" aria-hidden="true"></i></span>
+									<h4>{{ text_password }}</h4>
+								</a>
+							</div>
+						{% endif %}
+
+						{% if modules.display_address %}
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<a class="boxicon--default" href="{{ address }}">
+									<span class="icon_cart">  <i class="fa fa-address-book" aria-hidden="true"></i></span>
+									<h4>{{ text_address }}</h4>
+								</a>
+							</div>
+						{% endif %}
+
+						{% if modules.display_wishlist %}
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<a class="boxicon--default" href="{{ wishlist }}">
+									<span class="icon_cart">  <i class="fa fa-heart" aria-hidden="true"></i></span>
+									<h4>{{ text_wishlist }}</h4>
+								</a>
+							</div>
+						{% endif %}
+
+						{% if modules.display_orderhistory %}
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<a class="boxicon--default" href="{{ order }}">
+									<span class="icon_cart">  <i class="fa fa-undo" aria-hidden="true"></i></span>
+									<h4>{{ text_order }}</h4></a>
+								</a>
+							</div>
+						{% endif %}
+
+						{% if modules.display_downloads %}
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<a class="boxicon--default" href="{{ download }}">
+									<span class="icon_cart">  <i class="fa fa-cloud-download" aria-hidden="true"></i></span>
+									<h4>{{ text_download }}</h4>
+								</a>
+							</div>
+						{% endif %}
+
+						{% if modules.display_reward_points %}
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<a class="boxicon--default" href="{{ reward }}">
+									<span class="icon_cart">  <i class="fa fa-shield" aria-hidden="true"></i></span>
+									<h4>{{ text_reward }}</h4>
+								</a>
+							</div>
+						{% endif %}
+
+						{% if modules.display_returns %}
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<a class="boxicon--default" href="{{ return }}">
+									<span class="icon_cart">  <i class="fa fa-retweet" aria-hidden="true"></i></span>
+									<h4>{{ text_return }}</h4>
+								</a>
+							</div>
+						{% endif %}
+
+						{% if modules.display_transactions %}
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<a class="boxicon--default" href="{{ transaction }}">
+									<span class="icon_cart">  <i class="fa fa-money" aria-hidden="true"></i></span>
+									<h4>{{ text_transaction }}</h4>
+								</a>
+							</div>
+						{% endif %}
+
+						{% if modules.display_payments %}
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<a class="boxicon--default" href="{{ recurring }}">
+									<span class="icon_cart">   <i class="fa fa-usd" aria-hidden="true"></i></span>
+									<h4>{{ text_recurring }}</h4>
+								</a>
+							</div>
+						{% endif %}
+
+						{% if modules.display_newsletter %}
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<a class="boxicon--default" href="{{ newsletter }}">
+									<span class="icon_cart">  <i class="fa fa-envelope" aria-hidden="true"></i></span>
+									<h4>{{ text_newsletter }}</h4>
+								</a>
+							</div>
+						{% endif %}
+					</div>
+
+					{% if credit_cards %}
+						<h2>{{ text_credit_card }}</h2>
+						<div class="row">
+							{% for credit_card in credit_cards %}
+								<div class="col-md-3 col-sm-6 col-xs-6">
+									<span class="icon_cart">   <i class="fa fa-credit-card" aria-hidden="true"></i></span>
+									<a href="{{ credit_card.href }}"> {{ credit_card.name }} </a>
+								</div>
+							{% endfor %}
+						</div>
+					{% endif %}
+				
+					{#{{ content_bottom }}#}
+				</div>
+			
+				<div class="account-box last-order">
+					<div class="head-sec">
+						<h2 class="flex-center">
+							<svg class="bi" fill="currentColor"><use xlink:href="image/design/icons/account.svg#order-icon"></use></svg>
+							<span class="mr-3">{{text_latestOrders}}</span>
+						</h2>
+						<a class="show_more flex-center" href="{{ show_all_orders }}">
+							<span>{{ text_show_more }}</span>
+							<svg class="bi mr-2" fill="currentColor"><use xlink:href="image/design/icons/account.svg#arrow-left"></use></svg>
+						</a>
+					</div>
+					{% if orders %}
+						{% for order in orders %}
+						    {{ order.html }}
+							{#<div class="row">#}
+							{#	<div class="open-order">#}
+							{#		<svg class="bi" fill="currentColor"><use xlink:href="image/design/icons/account.svg#factor-icon"></use></svg>#}
+							{#		<span class="mr-3">سفارش باز</span>#}
+							{#	</div>#}
+							{#	<div class="col-md-6">#}
+							{#		<div class="d-flex">#}
+							{#			<div class="col-md-6 col-right">#}
+							{#				<p><span class="label">{{ column_order_id }}</span> <span>{{ order.order_id }}</span></p>#}
+							{#				<p><span>{{ order.date_added }}</span></p>#}
+							{#				<p><span>{{ order.status }}</span></p>#}
+							{#			</div>#}
+							{#			<div class="col-md-6 col-left">#}
+							{#				<p><span class="label">{{ text_sum_products }}</span> <span>{{ order.sum_products }}</span></p>#}
+							{#				<p><span class="label">{{ text_discount }}</span> <span class="discount">{{ order.total }}</span></p>#}
+							{#				<p><span class="label">{{ text_total }}</span> <span>{{ order.total }}</span></p>#}
+							{#			</div>#}
+							{#		</div>#}
+							{#		<div class="col-md-12">#}
+							{#			<div class="progressbar"></div>#}
+							{#		</div>#}
+							{#	</div>#}
+
+							{#	<div class="col-md-6 d-flex align-items-center">#}
+							{#		<div class="col-md-9 order-products-sec">#}
+							{#			<p class="order-products-head">{{ order.product_count }}</p>#}
+
+							{#			{% if order.product_data|length  <= 3 %}#}
+							{#				<div class="order-products">#}
+							{#					{% for product in order.product_data %}#}
+							{#						<div class="order-product">#}
+							{#							{% if product.qty > 1 %}<span class="product-count">{{ product.qty }}</span>{% endif %}#}
+							{#							<img src="{{ product.product_image }}">#}
+							{#						</div>#}
+							{#					{% endfor%}#}
+							{#				</div>#}
+							{#			{% else %}#}
+							{#				<div class="swiper contentslider order-products"#}
+							{#					 data-rtl="yes" data-autoplay="no"#}
+							{#					 data-pagination="yes" data-delay="4"#}
+							{#					 data-speed="0.6" data-margin="10"#}
+							{#					 data-mousedrag="yes"#}
+							{#					 data-items_column0="3" data-items_column1="3"#}
+							{#					 data-items_column2="3" data-items_column3="3" data-items_column4="3"#}
+							{#					 data-arrows="no" data-lazyload="yes" data-loop="no" data-hoverpause="yes">#}
+							{#				    <div class="swiper-wrapper">#}
+							{#					{% for product in order.product_data%}#}
+							{#						<div class="order-product swiper-slide">{% if product.qty > 1 %}<span class="product-count">{{ product.qty }}</span>{% endif %}<img src="{{ product.product_image }}"></div>#}
+							{#					{% endfor%}#}
+							{#					</div>#}
+
+							{#				</div>#}
+							{#			{% endif %}#}
+							{#		</div>#}
+							{#		<div class="col-md-3 order-btns">#}
+							{#			<a href="{{ order.view }}" class="btn btn-account"><svg class="bi" fill="currentColor"><use xlink:href="image/design/icons/account.svg#factor-icon"></use></svg><span>{{ text_show_factor }}</span></a>#}
+							{#			<a href="{{ order.view }}" class="btn btn-account"><svg class="bi" fill="currentColor"><use xlink:href="image/design/icons/account.svg#show-order-icon"></use></svg><span>{{ text_show_order }}</span></a>#}
+							{#			<a href="{{ order.smart_reorder_url }}" class="btn btn-account"><svg class="bi" fill="currentColor"><use xlink:href="image/design/icons/account.svg#reorder-icon"></use></svg><span>{{ text_reorder }}</span></a>#}
+							{#		</div>#}
+							{#	</div>#}
+							{#</div>#}
+						{% endfor %}
+					{% else %}
+						<div class="empty_order">
+							<div><svg class="bi" fill="currentColor"><use xlink:href="image/design/icons/account.svg#empty-order-icon"></use></svg></div>
+							<p>{{ text_empty_order }}</p>
+						</div>
+					{% endif %}
+				</div>
+				{# end last-order #}
+
+				{# frequent products #}
+				{% if frequent_products_list %}
+					<div class="frequent-products account-box">
+						<div class="head-sec">
+							<h2 class="flex-center">
+								<svg class="bi" fill="currentColor"><use xlink:href="image/design/icons/account.svg#ferquent-products-icon"></use></svg>
+								<span class="mr-3">{{text_frequent_products}}</span>
+							</h2>
+							<a class="show_more flex-center" href="{{ show_all_orders }}">
+								<span>{{ text_show_more }}</span>
+								<svg class="bi mr-2" fill="currentColor"><use xlink:href="image/design/icons/general.svg#arrow-left"></use></svg>
+							</a>
+						</div>
+						<div class="swiper contentslider products-list"
+							 data-rtl="yes" data-autoplay="no"
+							 data-pagination="no" data-delay="4"
+							 data-speed="0.6" data-margin="10"
+							 data-mousedrag="yes"
+							 data-items_column0="4" data-items_column1="4"
+							 data-items_column2="2" data-items_column3="2" data-items_column4="2"
+							 data-arrows="no" data-lazyload="yes" data-loop="no" data-hoverpause="yes">
+                            <div class="swiper-wrapper">
+							<!-- Products list -->
+							{% for product in frequent_products_list %}
+								{{ product }}
+							{% endfor %}
+							</div>
+						</div>
+					</div>
+				{% endif %}
+				{# end frequent products #}
+
+				{# last-reviews #}
+				<div class="reviews account-box">
+					<div class="head-sec">
+						<h2 class="flex-center">
+							<svg class="bi" fill="currentColor"><use xlink:href="image/design/icons/account.svg#comment-icon"></use></svg>
+							<span class="mr-3">{{text_last_reviews}}</span>
+						</h2>
+						{% if reviews %}
+						<a class="show_more flex-center" href="{{ show_all_reviews }}">
+							<span>{{ text_show_more }}</span>
+							<svg class="bi mr-2" fill="currentColor"><use xlink:href="image/design/icons/general.svg#arrow-left"></use></svg>
+						</a>
+						{% endif %}
+					</div>
+					
+					{% if reviews %}
+						<div class="swiper contentslider last-reviews row"
+							 data-rtl="yes" data-autoplay="no"
+							 data-pagination="no" data-delay="4"
+							 data-speed="0.6" data-margin="10"
+							 data-mousedrag="yes"
+							 data-items_column0="2" data-items_column1="2"
+							 data-items_column2="1" data-items_column3="1" data-items_column4="1"
+							 data-arrows="no" data-lazyload="yes" data-loop="no" data-hoverpause="yes">
+    						    <div class="swiper-wrapper">
+        							{% for review in reviews %}
+        								<div class="col-md-12 swiper-slide">
+        									<div class="review flex-center">
+        										<div class="col-md-5 flex-center">
+        											<div class="rating_status">
+        												<span class="badge badge-rating">{{ review.rating }}</span>
+        												{% if review.status == 0 %}
+        													<span class="badge procesing">{{ text_procesing }}</span>
+        												{% elseif review.status > 0 %}
+        													<span class="badge confirmed">{{ text_confirmed }}</span>
+        												{% elseif review.status < 0 %}
+        													<span class="badge failed">{{ text_failed }}</span>
+        												{% endif %}
+        											</div>
+        											<div class="img-product">
+        												<img src="{{ review.product_img }}">
+        											</div>
+        										</div>
+        										<div class="col-md-7">
+        											<div class="review-head">
+        												<h3>{{ review.product_name }}</h3>
+        												<div class="review-list">
+        													<svg class="bi" fill="currentColor"><use xlink:href="image/design/icons/account.svg#list-icon"></use></svg>
+        													<ul class="list d-none">
+        														<li class="list-item">
+        															<a href="#">
+        																<span></span>
+        															</a>
+        														</li>
+        													</ul>
+        												</div>
+        											</div>
+        											<div class="review-body">
+        												<p class="text_review">{{ review.text }}</p>
+        											</div>
+        										</div>
+        									</div>
+        								</div>
+        							{% endfor %}
+    							</div>
+						</div>
+					{% else %}
+						<div class="empty_order">
+							<div><svg class="bi" fill="currentColor"><use xlink:href="image/design/icons/account.svg#empty-order-icon"></use></svg></div>
+							<p>{{ text_empty_review }}</p>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+				
+				
+{% endblock %}

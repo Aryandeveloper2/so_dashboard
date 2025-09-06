@@ -1,0 +1,60 @@
+{% if  logged %}
+	<div class="myprofile">
+		<a class="myprofile--thumb thumbnail" href="{{ edit }}" >
+			{% if thumbUrl != "image/placeholder.png" %}
+				<img src="{{thumbUrl}}" class="img-responsive" alt="{{ text_editProfile }}" title="{{ text_editProfile }}">
+			{% else %}
+				<svg class="bi" fill="currentColor"><use xlink:href="image/design/icons/account.svg#profilethumb-icon"></use></svg>
+			{% endif %}
+		</a>
+		<a class="btn-edit" href="{{ edit }}" data-toggle="tooltip" title="" data-original-title="{{ text_editProfile }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+		<div class="myprofile--detail">
+			{% if customer_info %}
+				<h3>{{customer_info.firstname}} {{customer_info.lastname}}</h3>
+				{#<p>{{customer_info.email}}</p>#}
+			{% endif %}
+			{#<ul class="list-inline">
+			<li><a class="btn btn-default" href="{{ edit }}" data-toggle="tooltip" title="" data-original-title="{{ text_editProfile }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{ text_editProfile }}</a></li>
+		    <li><a  class="btn btn-default"  href="{{ logout }}" data-toggle="tooltip" title="" data-original-title="{{ text_logout }}"><i class="fa fa-sign-out" aria-hidden="true"></i> {{ text_logout }}</a></li>
+		</ul>#}
+		</div>
+	</div>
+	<a href="{{ transaction }}" class="amount">
+		<span>{{text_totalAmount}}</span><span>{{totalAmount}}</span>
+	</a>
+{% endif %}
+
+<div class="panel panel-default profile--panel">
+	{#<div class="panel-heading">{{text_headingProfile}}</div>#}
+	<div class="panel-body">
+		{% if not logged %}
+			<a href="{{ login }}" class="list-group-item"><i class="fa fa-user" aria-hidden="true"></i> {{ text_login }}</a>
+			<a href="{{ register }}" class="list-group-item"><i class="fa fa-key" aria-hidden="true"></i> {{ text_register }}</a>
+			<a href="{{ forgotten }}" class="list-group-item"><i class="fa fa-unlock-alt" aria-hidden="true"></i> {{ text_forgotten }}</a>
+		{% endif %}
+		{% if setting.display_account_myaccount %}<a href="{{ account }}" class="list-group-item {% if active_url == 'account-account' %} active {% endif %}"> <i class="fa fa-user" aria-hidden="true"></i> {{ text_account }}</a>{% endif %}
+		{% if logged %}
+			{% if setting.display_account_editaccount %}<a href="{{ edit }}" class="list-group-item"> <i class="fa fa-pencil-square" aria-hidden="true"></i> {{ text_edit }}</a>{% endif %}
+			{% if setting.display_account_password %}<a href="{{ password }}" class="list-group-item"><i class="fa fa-key" aria-hidden="true"></i> {{ text_password }}</a>{% endif %}
+		{% endif %}
+
+		{% if setting.display_account_address %}<a href="{{ address }}" class="list-group-item {% if active_url starts with 'account-address' %} active {% endif %}"><i class="fa fa-address-book" aria-hidden="true"></i> {{ text_address }}</a>{% endif %}
+		{% if setting.display_account_wishlist %}<a href="{{ wishlist }}" class="list-group-item {% if active_url == 'account-wishlist' %} active {% endif %}"><i class="fa fa-heart" aria-hidden="true"></i> {{ text_wishlist }}</a> {% endif %}
+		{% if setting.display_account_newsletter %} <a href="{{ newsletter }}" class="list-group-item {% if active_url == 'account-newsletter' %} active {% endif %}"><i class="fa fa-envelope" aria-hidden="true"></i> {{ text_newsletter }}</a>{% endif %}
+		{% if setting.display_order %}<a href="{{ order }}" class="list-group-item {% if active_url starts with 'account-order' %} active {% endif %}"><i class="fa fa-undo" aria-hidden="true"></i> {{ text_order }}</a>{% endif %}
+		{% if setting.display_order_transactions %}<a href="{{ transaction }}" class="list-group-item {% if active_url == 'account-transaction' %} active {% endif %}"><i class="fa fa-money" aria-hidden="true"></i> {{ text_transaction }}</a> {% endif %}
+		{% if setting.display_order_download %}<a href="{{ download }}" class="list-group-item {% if active_url == 'account-download' %} active {% endif %}"><i class="fa fa-cloud-download" aria-hidden="true"></i> {{ text_download }}</a>{% endif %}
+		{% if setting.display_order_payments %}<a href="{{ recurring }}" class="list-group-item {% if active_url == 'account-recurring' %} active {% endif %}"><i class="fa fa-usd" aria-hidden="true"></i> {{ text_recurring }}</a> {% endif %}
+		{% if setting.display_order_reward %}<a href="{{ reward }}" class="list-group-item {% if active_url == 'account-reward' %} active {% endif %}"><i class="fa fa-shield" aria-hidden="true"></i> {{ text_reward }}</a> {% endif %}
+		{% if setting.display_order_returns %}<a href="{{ return }}" class="list-group-item {% if active_url == 'account-return' %} active {% endif %}"><i class="fa fa-retweet" aria-hidden="true"></i> {{ text_return }}</a> {% endif %}
+
+		{#-----* Aryandeveloper *-----#}
+		{% if setting.display_reviews %}<a href="{{ reviews }}" class="list-group-item {% if active_url starts with 'account-reviews' %} active {% endif %}"><i class="fa fa-commenting-o" aria-hidden="true"></i> {{ text_review }}</a>{% endif %}
+		{% if setting.display_setting %}<a href="{{ settings }}" class="list-group-item {% if active_url == 'account-edit' %} active {% endif %}"><i class="fa fa-cog" aria-hidden="true"></i> {{ text_setting }}</a>{% endif %}
+		{% if setting.display_subscription %}<a href="{{ subscription }}" class="list-group-item {% if active_url == 'account-edit' %} active {% endif %}"><i class="fa fa-check-square-o" aria-hidden="true"></i> {{ text_subscription }}</a>{% endif %}
+		{% if online_deposit %}<a href="{{ online_deposit }}" class="list-group-item {% if active_url == 'account-edit' %} active {% endif %}"><i class="fa fa-check-square-o" aria-hidden="true"></i> 
+		واریز وجه
+		</a>{% endif %}
+
+	</div>
+</div>
