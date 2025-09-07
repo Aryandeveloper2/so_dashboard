@@ -821,8 +821,8 @@ $order_product_data[] = array(
 ]]></add>
 </operation>
 <operation>
-<search><![CDATA['smart_reorder_url' => $this->url->link('account/order/smart_reorder', 'order_id='.$result['order_id'], true)]]></search>
-<add position="after"><![CDATA[,
+<search><![CDATA['order_id'   => $result['order_id'],]]></search>
+<add position="after"><![CDATA[
 'product_count' => sprintf($this->language->get('text_product_count') , ($product_total + $voucher_total)),
 'product_data'=>$order_product_data ,
 'sum_products' => $sum_products,
