@@ -1,26 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <modification>
-  <name><![CDATA[So Dashboard]]></name>
-  <code>so-dashboard</code>
-  <version><![CDATA[2.2.1.0]]></version>
-  <author><![CDATA[OpencartWorks]]></author>
-  <link>http://www.OpencartWorks.com</link>
-  <file path="catalog/controller/account/order.php">
-    <operation>
-      <search><![CDATA[$order_total = $this->model_account_order->getTotalOrders();]]></search>
-      <add position="replace"><![CDATA[
+<name><![CDATA[So Dashboard]]></name>
+<code>so-dashboard</code>
+<version><![CDATA[2.2.2.0]]></version>
+<author><![CDATA[OpencartWorks]]></author>
+<link>http://www.OpencartWorks.com</link>
+
+
+
+
+
+
+
+
+
+<file path="catalog/controller/account/order.php">
+
+<operation>
+<search><![CDATA[$order_total = $this->model_account_order->getTotalOrders();]]></search>
+<add position="replace"><![CDATA[
 /*$order_total = $this->model_account_order->getTotalOrders();
 ]]></add>
-    </operation>
-    <operation>
-      <search><![CDATA[$data['results'] = sprintf($this->language->get('text_pagination'), ($order_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($order_total - 10)) ? $order_total : ((($page - 1) * 10) + 10), $order_total, ceil($order_total / 10));]]></search>
-      <add position="after"><![CDATA[
+</operation>
+
+<operation>
+<search><![CDATA[$data['results'] = sprintf($this->language->get('text_pagination'), ($order_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($order_total - 10)) ? $order_total : ((($page - 1) * 10) + 10), $order_total, ceil($order_total / 10));]]></search>
+<add position="after"><![CDATA[
 */
 ]]></add>
-    </operation>
-    <operation>
-      <search><![CDATA[$data['orders'] = array();]]></search>
-      <add position="after"><![CDATA[
+</operation>
+
+<operation>
+<search><![CDATA[$data['orders'] = array();]]></search>
+<add position="after"><![CDATA[
 $data['orders'] = array();
 $this->load->model('account/order');
 $data['category_list'] = [
@@ -45,10 +57,12 @@ $data = array_merge($data,$order_data);
 
 
 ]]></add>
-    </operation>
-    <operation>
-      <search><![CDATA[public function info() {]]></search>
-      <add position="before"><![CDATA[
+</operation>
+
+
+<operation>
+<search><![CDATA[public function info() {]]></search>
+<add position="before"><![CDATA[
 public function filter() {
 $data = $this->getOrders();
 $this->response->addHeader('Content-Type: application/json');
@@ -168,36 +182,47 @@ return [
 
 
 ]]></add>
-    </operation>
-  </file>
-  <file path="catalog/language/fa-ir/account/order.php">
-    <operation>
-      <search><![CDATA[<?php]]></search>
-      <add position="after"><![CDATA[
+</operation>  
+
+
+
+
+</file>
+
+<file path="catalog/language/fa-ir/account/order.php">
+<operation>
+<search><![CDATA[<?php]]></search>
+<add position="after"><![CDATA[
 $_['text_ongoing'] = 'جاری';
 $_['text_delivered'] = 'تحویل شده';
 $_['text_returned'] = 'مرجوع شده';
 $_['text_cancelled'] = 'لغو شده';
 
 ]]></add>
-    </operation>
-  </file>
-  <!--========Bug Fix Trasnaction=============-->
-  <file path="catalog/controller/account/transaction.php">
-    <operation>
-      <search><![CDATA['date_added'  => ($this->language->get('code') == 'fa') ? jdate($this->config->get('config_shamsidate_format'), strtotime($result['date_added'])) : ($this->language->get('code') == 'fa') ? jdate($this->config->get('config_shamsidate_format'), strtotime($result['date_added'])) : date($this->language->get('date_format_short'), strtotime($result['date_added']))]]></search>
-      <add position="replace"><![CDATA[
+</operation>
+</file>
+
+
+
+
+
+<!--========Bug Fix Trasnaction=============-->
+<file path="catalog/controller/account/transaction.php">
+<operation>
+<search><![CDATA['date_added'  => ($this->language->get('code') == 'fa') ? jdate($this->config->get('config_shamsidate_format'), strtotime($result['date_added'])) : ($this->language->get('code') == 'fa') ? jdate($this->config->get('config_shamsidate_format'), strtotime($result['date_added'])) : date($this->language->get('date_format_short'), strtotime($result['date_added']))]]></search>
+<add position="replace"><![CDATA[
 'date_added'  => ($this->language->get('code') == 'fa') ?
 jdate($this->config->get('config_shamsidate_format'), strtotime($result['date_added'])) : 
 date($this->language->get('date_format_short'), strtotime($result['date_added'])),
 ]]></add>
-    </operation>
-  </file>
-  <!--========catalog/model/order=============-->
-  <file path="catalog/model/account/order.php">
-    <operation>
-      <search><![CDATA[public function getOrderProducts($order_id) {]]></search>
-      <add position="before"><![CDATA[
+</operation>
+</file>
+
+<!--========catalog/model/order=============-->
+<file path="catalog/model/account/order.php">
+<operation>
+<search><![CDATA[public function getOrderProducts($order_id) {]]></search>
+<add position="before"><![CDATA[
 public function getFrequentProducts($customer_id) {
 $query = $this->db->query("SELECT o.order_id, op.product_id, p.image, op.name, op.quantity ,p.price ,SUM(op.quantity) sum_qty ,(SELECT price FROM " . DB_PREFIX . "product_special ps WHERE ps.product_id = p.product_id AND ps.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW()) AND (ps.date_end = '0000-00-00' OR ps.date_end > NOW())) ORDER BY ps.priority ASC, ps.price ASC LIMIT 1) AS special FROM " . DB_PREFIX . "order_product op LEFT JOIN " . DB_PREFIX . "order o ON (op.order_id = o.order_id) LEFT JOIN " . DB_PREFIX . "product p ON (op.product_id = p.product_id) WHERE o.customer_id = ". (int)$customer_id ." AND o.order_status_id != 0  group by op.product_id order by sum_qty DESC LIMIT 12");
 return $query->rows;
@@ -252,25 +277,30 @@ return [
 
 
 ]]></add>
-    </operation>
-    <operation>
-      <search><![CDATA[$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_product WHERE order_id = '" . (int)$order_id . "'");]]></search>
-      <add position="after"><![CDATA[
+</operation>
+
+
+
+
+
+<operation>
+<search><![CDATA[$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_product WHERE order_id = '" . (int)$order_id . "'");]]></search>
+<add position="after"><![CDATA[
 $query = $this->db->query("SELECT op.* , p.image FROM " . DB_PREFIX . "order_product op LEFT JOIN " . DB_PREFIX . "product p ON (op.product_id = p.product_id) WHERE op.order_id = '" . (int)$order_id. "'");
 ]]></add>
-    </operation>
-    <operation>
-      <search><![CDATA[$query = $this->db->query("SELECT o.order_id, o.firstname, o.lastname, os.name as status, o.date_added, o.total, o.currency_code, o.currency_value FROM `" . DB_PREFIX . "order` o LEFT JOIN " . DB_PREFIX . "order_status os ON (o.order_status_id = os.order_status_id) WHERE o.customer_id = '" . (int)$this->customer->getId() . "' AND o.order_status_id > '0' AND o.store_id = '" . (int)$this->config->get('config_store_id') . "' AND os.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY o.order_id DESC LIMIT " . (int)$start . "," . (int)$limit);]]></search>
-      <add position="replace"><![CDATA[
+</operation>
+<operation>
+<search><![CDATA[$query = $this->db->query("SELECT o.order_id, o.firstname, o.lastname, os.name as status, o.date_added, o.total, o.currency_code, o.currency_value FROM `" . DB_PREFIX . "order` o LEFT JOIN " . DB_PREFIX . "order_status os ON (o.order_status_id = os.order_status_id) WHERE o.customer_id = '" . (int)$this->customer->getId() . "' AND o.order_status_id > '0' AND o.store_id = '" . (int)$this->config->get('config_store_id') . "' AND os.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY o.order_id DESC LIMIT " . (int)$start . "," . (int)$limit);]]></search>
+<add position="replace"><![CDATA[
 $query = $this->db->query("SELECT o.order_id, o.firstname, o.lastname, os.name as status, os.category , o.date_added, o.total, o.currency_code, o.currency_value,o.payment_method, o.shipping_method FROM `" . DB_PREFIX . "order` o LEFT JOIN " . DB_PREFIX . "order_status os ON (o.order_status_id = os.order_status_id) WHERE o.customer_id = '" . (int)$this->customer->getId() . "' AND o.order_status_id > '0' AND o.store_id = '" . (int)$this->config->get('config_store_id') . "' AND os.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY o.order_id DESC LIMIT " . (int)$start . "," . (int)$limit);
 ]]></add>
-    </operation>
-  </file>
-  <!--========catalog/controller/header=============-->
-  <file path="catalog/controller/common/header.php">
-    <operation>
-      <search><![CDATA[public function index() {]]></search>
-      <add position="after"><![CDATA[
+</operation>
+</file>
+<!--========catalog/controller/header=============-->
+<file path="catalog/controller/common/header.php">
+<operation>
+<search><![CDATA[public function index() {]]></search>
+<add position="after"><![CDATA[
 /*--  End - SO Dashboard --*/
 $this->load->model('account/customer');
 $data['customer_info'] = $this->model_account_customer->getCustomer($this->customer->getId());
@@ -296,13 +326,13 @@ $data['thumbUrl'] = 'image/placeholder.png';
 $data['item_compare'] = sprintf($this->language->get('text_compare'), (isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));
 /*--  End - SO Dashboard --*/
 ]]></add>
-    </operation>
-  </file>
-  <!--========catalog/controller/account=============-->
-  <file path="catalog/controller/account/edit.php">
-    <operation>
-      <search><![CDATA[$this->response->setOutput($this->load->view('account/edit', $data))]]></search>
-      <add position="before"><![CDATA[
+</operation>
+</file>
+<!--========catalog/controller/account=============-->
+<file path="catalog/controller/account/edit.php">
+<operation>
+<search><![CDATA[$this->response->setOutput($this->load->view('account/edit', $data))]]></search>
+<add position="before"><![CDATA[
 /*--  End - SO Dashboard --*/
 $this->load->language('extension/module/so_dashboard');
 $this->load->model('account/customer');
@@ -316,10 +346,10 @@ $data['thumbUrl'] = 'image/placeholder.png';
 }
 /*--  End - SO Dashboard --*/
 ]]></add>
-    </operation>
-    <operation>
-      <search><![CDATA[protected function validate]]></search>
-      <add position="before"><![CDATA[
+</operation>
+<operation>
+<search><![CDATA[protected function validate]]></search>
+<add position="before"><![CDATA[
 /*--  End - SO Dashboard --*/
 public function uploadprofileimage() {
 $this->load->language('tool/upload');
@@ -360,11 +390,11 @@ $this->response->setOutput(json_encode($json));
 }
 /*--  End - SO Dashboard --*/
 ]]></add>
-    </operation>
-    <!--Chenge Password-->
-    <operation>
-      <search><![CDATA[protected function validate() {]]></search>
-      <add position="after"><![CDATA[
+</operation>
+<!--Chenge Password-->
+<operation>
+<search><![CDATA[protected function validate() {]]></search>
+<add position="after"><![CDATA[
 if(!empty($this->request->post['password'])) {
 if ((utf8_strlen(html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8')) < 4) || (utf8_strlen(html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8')) > 40)) {
 $this->error['password'] = $this->language->get('error_password');
@@ -381,19 +411,19 @@ $this->error['confirm'] = $this->language->get('error_confirm');
 }
 }
 ]]></add>
-    </operation>
-    <operation>
-      <search><![CDATA[if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {]]></search>
-      <add position="after"><![CDATA[
+</operation>
+<operation>
+<search><![CDATA[if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {]]></search>
+<add position="after"><![CDATA[
 if(!empty($this->request->post['password']) && !empty($this->request->post['confirm'])) {
 $this->model_account_customer->editPassword($this->customer->getEmail(), $this->request->post['password']);
 }
 $this->model_account_customer->editNewsletter($this->request->post['newsletter']);
 ]]></add>
-    </operation>
-    <operation>
-      <search><![CDATA[$data['action'] = $this->url->link('account/edit', '', true);]]></search>
-      <add position="before"><![CDATA[
+</operation>
+<operation>
+<search><![CDATA[$data['action'] = $this->url->link('account/edit', '', true);]]></search>
+<add position="before"><![CDATA[
 if (isset($this->error['password'])) {
 $data['error_password'] = $this->error['password'];
 } else {
@@ -405,10 +435,10 @@ $data['error_confirm'] = $this->error['confirm'];
 $data['error_confirm'] = '';
 }
 ]]></add>
-    </operation>
-    <operation>
-      <search><![CDATA[$data['action'] = $this->url->link('account/edit', '', true);]]></search>
-      <add position="after"><![CDATA[
+</operation>
+<operation>
+<search><![CDATA[$data['action'] = $this->url->link('account/edit', '', true);]]></search>
+<add position="after"><![CDATA[
 if (isset($this->request->post['password'])) {
 $data['password'] = $this->request->post['password'];
 } else {
@@ -422,13 +452,13 @@ $data['confirm'] = '';
 }
 $data['newsletter'] = $this->customer->getNewsletter();
 ]]></add>
-    </operation>
-    <!--End Chenge Password-->
-  </file>
-  <file path="catalog/controller/account/account.php">
-    <operation>
-      <search><![CDATA[$data['header'] = $this->load->controller('common/header');]]></search>
-      <add position="before"><![CDATA[
+</operation>
+<!--End Chenge Password-->
+</file>
+<file path="catalog/controller/account/account.php">
+<operation>
+<search><![CDATA[$data['header'] = $this->load->controller('common/header');]]></search>
+<add position="before"><![CDATA[
 /*--  End - SO Dashboard --*/
 
 $this->load->model('account/order');
@@ -566,16 +596,16 @@ $data['modules'] = $setting_info;
 }
 }
 ]]></add>
-    </operation>
-    <operation>
-      <search><![CDATA[$this->response->setOutput($this->load->view('account/account', $data))]]></search>
-      <add position="replace"><![CDATA[$this->response->setOutput($this->load->view('account/so_dashboard.', $data))]]></add>
-    </operation>
-  </file>
-  <file path="catalog/view/theme/*/template/account/edit.twig">
-    <operation>
-      <search><![CDATA[{{ footer }}]]></search>
-      <add position="after"><![CDATA[
+</operation>
+<operation>
+<search><![CDATA[$this->response->setOutput($this->load->view('account/account', $data))]]></search>
+<add position="replace"><![CDATA[$this->response->setOutput($this->load->view('account/so_dashboard.', $data))]]></add>
+</operation>
+</file>
+<file path="catalog/view/theme/*/template/account/edit.twig">
+<operation>
+<search><![CDATA[{{ footer }}]]></search>
+<add position="after"><![CDATA[
 {#--  End - SO Dashboard --#}
 <style>.profileimage{margin-top: 17px;}</style>
 <script type="text/javascript"><!--
@@ -624,10 +654,10 @@ alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 });
 //--></script>
 ]]></add>
-    </operation>
-    <operation>
-      <search><![CDATA[{% for custom_field in custom_fields %}]]></search>
-      <add position="before"><![CDATA[
+</operation>
+<operation>
+<search><![CDATA[{% for custom_field in custom_fields %}]]></search>
+<add position="before"><![CDATA[
 {#--  End - SO Dashboard --#}
 <div class="form-group custom-field">
 <label class="col-sm-2 control-label">{{entry_profileImage}}</label>
@@ -641,11 +671,11 @@ alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 </div>
 {#--  End - SO Dashboard --#}
 ]]></add>
-    </operation>
-    <!--Chenge Password and newslatter-->
-    <operation>
-      <search><![CDATA[<div class="buttons clearfix">]]></search>
-      <add position="before"><![CDATA[
+</operation>
+<!--Chenge Password and newslatter-->
+<operation>
+<search><![CDATA[<div class="buttons clearfix">]]></search>
+<add position="before"><![CDATA[
 <fieldset>
 <legend>{{ text_password }}</legend>
 <div class="form-group">
@@ -691,21 +721,21 @@ alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 </div>
 </fieldset>
 ]]></add>
-    </operation>
-    <!--End Chenge Password and Newslatter -->
-  </file>
-  <file path="catalog/controller/account/logout.php">
-    <operation>
-      <search><![CDATA[$this->response->redirect($this->url->link('account/logout', '', true));]]></search>
-      <add position="replace"><![CDATA[$this->response->redirect($this->url->link('common/home', '', true));]]></add>
-    </operation>
-  </file>
-  <!--========catalog/language/fa-ir/account=============-->
-  <file path="catalog/language/fa-ir/account/edit.php">
-    <!--Chenge Password and Newslatter-->
-    <operation>
-      <search><![CDATA[$_['text_success']       = 'حساب کاربری شما با موفقیت بروزرسانی شد.';]]></search>
-      <add position="after"><![CDATA[
+</operation>
+<!--End Chenge Password and Newslatter -->
+</file>
+<file path="catalog/controller/account/logout.php">
+<operation>
+<search><![CDATA[$this->response->redirect($this->url->link('account/logout', '', true));]]></search>
+<add position="replace"><![CDATA[$this->response->redirect($this->url->link('common/home', '', true));]]></add>
+</operation>
+</file>
+<!--========catalog/language/fa-ir/account=============-->
+<file path="catalog/language/fa-ir/account/edit.php">
+<!--Chenge Password and Newslatter-->
+<operation>
+<search><![CDATA[$_['text_success']       = 'حساب کاربری شما با موفقیت بروزرسانی شد.';]]></search>
+<add position="after"><![CDATA[
 // Text
 $_['text_password']  = 'رمز عبور';
 $_['text_success']   = 'رمز عبور شما با موفقيت بروزرسانی شد!';
@@ -720,20 +750,21 @@ $_['entry_newsletter'] ='اشتراک';
 $_['error_password'] = 'رمز عبور باید بین 4 تا 20 کاراکتر باشد!';
 $_['error_confirm']  = 'تکرار رمز عبور با رمز عبور مطابقت ندارد!';
 ]]></add>
-    </operation>
-    <!--End Chenge Password and Newslatter-->
-  </file>
-  <file path="catalog/view/theme/default/template/account/*">
-    <!-- Add ExitButton -->
-    <operation>
-      <search><![CDATA[{{ content_top }}]]></search>
-      <add position="after"><![CDATA[
+</operation>
+<!--End Chenge Password and Newslatter-->
+</file>
+
+<file path="catalog/view/theme/default/template/account/*">
+<!-- Add ExitButton -->
+<operation>
+<search><![CDATA[{{ content_top }}]]></search>
+<add position="after"><![CDATA[
 <div class="dasboard-head">
 ]]></add>
-    </operation>
-    <operation>
-      <search><![CDATA[<div class="main-content">]]></search>
-      <add position="before"><![CDATA[
+</operation>
+<operation>
+<search><![CDATA[<div class="main-content">]]></search>
+<add position="before"><![CDATA[
 <div class="btns" style="margin-right:auto;">
 <a class="btn-logout"  href="{{ logout }}" data-toggle="tooltip" title="" data-original-title="{{ text_logout }}"><i class="fa fa-power-off" aria-hidden="true"></i></a>
 <button class="open-column" type="button"  id="show-aside" data-bs-toggle="offcanvas" data-bs-target="#left-column" aria-controls="left-column">
@@ -742,33 +773,39 @@ $_['error_confirm']  = 'تکرار رمز عبور با رمز عبور مطاب
 </div>
 </div>
 ]]></add>
-    </operation>
-  </file>
-  <file path="catalog/controller/common/column_left.php">
-    <operation>
-      <search><![CDATA[return $this->load->view('common/column_left', $data);]]></search>
-      <add position="before"><![CDATA[
+</operation>
+</file>
+
+
+<file path="catalog/controller/common/column_left.php">
+<operation>
+<search><![CDATA[return $this->load->view('common/column_left', $data);]]></search>
+<add position="before"><![CDATA[
 if($this->session->data['device'] =='mobile') {
 $data['device']   = 'mobile';
 } else {
 $data['device']   = 'desktop';
 }
 ]]></add>
-    </operation>
-  </file>
-  <file path="catalog/controller/account/*">
-    <operation>
-      <search><![CDATA[$this->response->setOutput(]]></search>
-      <add position="before"><![CDATA[
+</operation>
+</file>
+
+
+<file path="catalog/controller/account/*">
+<operation>
+<search><![CDATA[$this->response->setOutput(]]></search>
+<add position="before"><![CDATA[
 $data['logout'] = $this->url->link('account/logout', '', true);
 ]]></add>
-    </operation>
-    <!--End  Add ExitButton -->
-  </file>
-  <file path="catalog/controller/account/order.php">
-    <operation>
-      <search><![CDATA[$order_info = $this->model_account_order->getOrder($result['order_id']);]]></search>
-      <add position="after"><![CDATA[
+</operation>
+<!--End  Add ExitButton -->
+</file>
+
+
+<file path="catalog/controller/account/order.php">
+<operation>
+<search><![CDATA[$order_info = $this->model_account_order->getOrder($result['order_id']);]]></search>
+<add position="after"><![CDATA[
 $this->load->model('tool/image');
 $order_products = $this->model_account_order->getOrderProducts($result['order_id']);
 $order_product_data = array();
@@ -782,24 +819,24 @@ $order_product_data[] = array(
 );
 }
 ]]></add>
-    </operation>
-    <operation>
-      <search><![CDATA['smart_reorder_url' => $this->url->link('account/order/smart_reorder', 'order_id='.$result['order_id'], true)]]></search>
-      <add position="after"><![CDATA[,
+</operation>
+<operation>
+<search><![CDATA['smart_reorder_url' => $this->url->link('account/order/smart_reorder', 'order_id='.$result['order_id'], true)]]></search>
+<add position="after"><![CDATA[,
 'product_count' => sprintf($this->language->get('text_product_count') , ($product_total + $voucher_total)),
 'product_data'=>$order_product_data ,
 'sum_products' => $sum_products,
 ]]></add>
-    </operation>
-    <operation>
-      <search><![CDATA['date_added' => ($this->language->get('code') == 'fa') ? jdate($this->config->get('config_shamsidate_format'), strtotime($result['date_added'])) : date($this->language->get('date_format_short'), strtotime($result['date_added'])),]]></search>
-      <add position="after"><![CDATA['date_added' => ($this->language->get('code') == 'fa') ? jdate('l d F Y', strtotime($result['date_added'])) : date($this->language->get('date_format_short'), strtotime($result['date_added'])),]]></add>
-    </operation>
-  </file>
-  <file path="catalog/language/fa-ir/account/order.php">
-    <operation>
-      <search><![CDATA[$_['text_error']]]></search>
-      <add position="before"><![CDATA[
+</operation>
+<operation>
+<search><![CDATA['date_added' => ($this->language->get('code') == 'fa') ? jdate($this->config->get('config_shamsidate_format'), strtotime($result['date_added'])) : date($this->language->get('date_format_short'), strtotime($result['date_added'])),]]></search>
+<add position="after"><![CDATA['date_added' => ($this->language->get('code') == 'fa') ? jdate('l d F Y', strtotime($result['date_added'])) : date($this->language->get('date_format_short'), strtotime($result['date_added'])),]]></add>
+</operation>
+</file>
+<file path="catalog/language/fa-ir/account/order.php">
+<operation>
+<search><![CDATA[$_['text_error']]]></search>
+<add position="before"><![CDATA[
 $_['text_product_count']  = 'شامل %u قلم کالا';
 $_['text_show_order']     = 'جزییات سفارش';
 $_['text_show_factor']    = 'مشاهده فاکتور';
@@ -809,6 +846,6 @@ $_['text_discount']       = 'جمع کل تخفیف';
 $_['text_empty_order']    = 'سفارشی موجود نیست';
 $_['text_total']    = 'جمع کل سفارش';
 ]]></add>
-    </operation>
-  </file>
+</operation>
+</file>
 </modification>
